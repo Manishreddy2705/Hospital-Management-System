@@ -60,7 +60,7 @@ HospitalManagementSystem/
 1. Install **MySQL** and create a database:
 
    ```sql
-   CREATE DATABASE hospital;
+   create database if not exists hospital;
    ```
 
 2. Create required tables:
@@ -68,22 +68,24 @@ HospitalManagementSystem/
    ```sql
    CREATE TABLE patients (
        id INT PRIMARY KEY AUTO_INCREMENT,
-       name VARCHAR(100),
-       age INT,
-       gender VARCHAR(10)
+       name VARCHAR(255) not null,
+       age INT not null,
+       gender char not null
    );
 
    CREATE TABLE doctors (
        id INT PRIMARY KEY AUTO_INCREMENT,
-       name VARCHAR(100),
-       specialization VARCHAR(100)
+       name VARCHAR(100) not null,
+       specialization VARCHAR(100) not null
    );
 
    CREATE TABLE appointments (
        id INT PRIMARY KEY AUTO_INCREMENT,
-       patient_id INT,
-       doctors_id INT,
-       appointment_date DATE
+       patient_id INT not null,
+       doctors_id INT not null,
+       appointment_date DATE not null,
+       foreign key (patient_id) references patients(id),
+       foreign key (doctors_id) references doctors(id),
    );
    ```
 
@@ -104,7 +106,7 @@ HospitalManagementSystem/
 
 ---
 
-## **📌 Highlights**
+##  Highlights**
 
 * Demonstrates real-world appointment booking logic
 * Avoids SQL injection via PreparedStatement
@@ -113,7 +115,7 @@ HospitalManagementSystem/
 
 ---
 
-## **📖 Future Improvements**
+## Future Improvements**
 
 * Add login system for admin, doctors, or staff
 * Add appointment cancellation or update features
